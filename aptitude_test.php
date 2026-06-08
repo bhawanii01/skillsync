@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['quiz_submit'])) {
     $attemptNo = $prevAttempts + 1;
 
     $stmt = $conn->prepare("INSERT INTO aptitude_attempts (user_id, attempt_no, total_q, correct, wrong, skipped, score, percentage, time_taken) VALUES (?,?,?,?,?,?,?,?,?)");
-    $stmt->bind_param('iiiiidddi', $userId, $attemptNo, $total, $correct, $wrong, $skipped, $scoreVal, $percentage, $timeTaken);
+    $stmt->bind_param('iiiiiiddi', $userId, $attemptNo, $total, $correct, $wrong, $skipped, $scoreVal, $percentage, $timeTaken);
     $stmt->execute();
 
     computeOverallScore($conn, $userId);

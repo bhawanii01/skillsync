@@ -9,7 +9,7 @@ define('DB_PASS',     getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');    
 define('DB_NAME',     getenv('DB_NAME') ?: 'skillsync_db');
 $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-$path = ($host === 'localhost' || $host === '127.0.0.1') ? '/skillsync' : '';
+$path = (strpos($_SERVER['REQUEST_URI'] ?? '', '/skillsync') !== false) ? '/skillsync' : '';
 define('BASE_URL', $protocol . "://" . $host . $path . '/');
 define('UPLOAD_PATH', __DIR__ . '/uploads/resumes/');
 define('SITE_NAME',   'SkillSync');
@@ -49,8 +49,25 @@ function computeOverallScore($conn, $userId) {
     $row = $conn->query("SELECT target_role FROM users WHERE id=$userId")->fetch_assoc();
     $role = $row['target_role'] ?? '';
 
-    $skillCount = $conn->query("SELECT COUNT(*) as c FROM user_skills WHERE user_id=$userId")->fetch_assoc()['c'];
-    $skillScore = min(100, $skillCount * 5);   // 5 pts per skill, max 100
+    $SKILL_MATRIX = [
+      'Web Developer'       => ['HTML','CSS','JavaScript','React.js','PHP','MySQL','Git','REST API'],
+      'Software Engineer'   => ['Data Structures','Algorithms','C++','Java','OOP','DBMS','Computer Networks','Git'],
+      'Data Analyst'        => ['Python','SQL','Excel','Statistics','Power BI','Pandas','Communication'],
+      'Full Stack Developer'=> ['React.js','Node.js','MySQL','MongoDB','Git','REST API'],
+      'Cloud Engineer'      => ['AWS','Linux','Docker','Computer Networks','Git','OOP'],
+      'UI/UX Designer'      => ['Figma','CSS','HTML','Communication','Problem Solving'],
+    ];
+
+    $roleSkills = $SKILL_MATRIX[$role] ?? [];
+    if (count($roleSkills) > 0) {
+        $mySkillsResult = $conn->query("SELECT skill_name FROM user_skills us JOIN skills s ON s.id=us.skill_id WHERE us.user_id=$userId");
+        $mySkills = [];
+        while ($r = $mySkillsResult->fetch_assoc()) $mySkills[] = $r['skill_name'];
+        $hasSkills = array_intersect($mySkills, $roleSkills);
+        $skillScore = round(count($hasSkills) / count($roleSkills) * 100);
+    } else {
+        $skillScore = 0;
+    }
 
     // Aptitude score: last attempt percentage
     $apt = $conn->query("SELECT percentage FROM aptitude_attempts WHERE user_id=$userId ORDER BY attempted_at DESC LIMIT 1")->fetch_assoc();
@@ -61,9 +78,17 @@ function computeOverallScore($conn, $userId) {
     $resumeScore = $res ? $res['strength_score'] : 0;
 
     // Roadmap score
-    $total   = $conn->query("SELECT COUNT(*) as c FROM career_roadmap_progress WHERE user_id=$userId")->fetch_assoc()['c'];
-    $done    = $conn->query("SELECT COUNT(*) as c FROM career_roadmap_progress WHERE user_id=$userId AND is_complete=1")->fetch_assoc()['c'];
-    $roadmapScore = $total > 0 ? round(($done / $total) * 100) : 0;
+    $roadmapPhaseCounts = [
+        'Web Developer'        => 6,
+        'Software Engineer'    => 5,
+        'Data Analyst'         => 5,
+        'Full Stack Developer' => 5,
+        'UI/UX Designer'       => 4,
+        'Cloud Engineer'       => 5
+    ];
+    $totalPhases = $roadmapPhaseCounts[$role] ?? 5;
+    $done = $conn->query("SELECT COUNT(*) as c FROM career_roadmap_progress WHERE user_id=$userId AND role='$role' AND is_complete=1")->fetch_assoc()['c'];
+    $roadmapScore = round(($done / $totalPhases) * 100);
 
     // Weighted overall
     $overall = round($skillScore * 0.35 + $aptScore * 0.30 + $resumeScore * 0.20 + $roadmapScore * 0.15);

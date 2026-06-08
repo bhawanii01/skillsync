@@ -45,29 +45,34 @@ function highlightActiveNav() {
 /* ---- Skill Gap Analysis Engine ---- */
 const SKILL_MATRIX = {
   "Web Developer": {
-    core:    ["HTML", "CSS", "JavaScript", "React"],
-    backend: ["Node.js", "PHP", "MySQL"],
-    tools:   ["Git", "REST API", "VS Code"]
+    core:    ["HTML", "CSS", "JavaScript", "React.js"],
+    backend: ["PHP", "MySQL"],
+    tools:   ["Git", "REST API"]
+  },
+  "Software Engineer": {
+    core:    ["Data Structures", "Algorithms", "C++", "Java"],
+    systems: ["DBMS", "Computer Networks"],
+    tools:   ["OOP", "Git"]
   },
   "Data Analyst": {
     core:    ["Python", "SQL", "Excel", "Statistics"],
-    tools:   ["Tableau", "Power BI", "Pandas"],
-    soft:    ["Communication", "Problem Solving"]
+    tools:   ["Power BI", "Pandas"],
+    soft:    ["Communication"]
   },
-  "Software Engineer": {
-    core:    ["C++", "Java", "Data Structures", "Algorithms"],
-    systems: ["OS Concepts", "DBMS", "Computer Networks"],
-    tools:   ["Git", "Linux", "OOP"]
-  },
-  "UI/UX Designer": {
-    core:    ["Figma", "Adobe XD", "Wireframing", "Prototyping"],
-    concepts:["Color Theory", "Typography", "User Research"],
-    tools:   ["CSS", "HTML", "Illustrator"]
+  "Full Stack Developer": {
+    core:    ["React.js", "Node.js"],
+    backend: ["MySQL", "MongoDB"],
+    tools:   ["Git", "REST API"]
   },
   "Cloud Engineer": {
-    core:    ["AWS", "Azure", "Linux", "Networking"],
-    tools:   ["Docker", "Kubernetes", "Terraform"],
-    devops:  ["CI/CD", "Git", "Monitoring"]
+    core:    ["AWS", "Linux", "Docker"],
+    systems: ["Computer Networks"],
+    tools:   ["Git", "OOP"]
+  },
+  "UI/UX Designer": {
+    core:    ["Figma"],
+    tools:   ["CSS", "HTML"],
+    soft:    ["Communication", "Problem Solving"]
   }
 };
 
@@ -81,14 +86,10 @@ const WEIGHTS = { core: 0.50, backend: 0.25, tools: 0.15, systems: 0.10, soft: 0
 function computeReadinessScore(userSkills, role) {
   const matrix = SKILL_MATRIX[role];
   if (!matrix) return 0;
-  let total = 0, earned = 0;
-  Object.entries(matrix).forEach(([cat, skills]) => {
-    const w = WEIGHTS[cat] || 0.10;
-    const catScore = skills.filter(s => userSkills.includes(s)).length / skills.length;
-    earned += catScore * w;
-    total  += w;
-  });
-  return Math.round((earned / total) * 100);
+  const roleSkills = Object.values(matrix).flat();
+  if (roleSkills.length === 0) return 0;
+  const hasSkills = roleSkills.filter(s => userSkills.includes(s));
+  return Math.round((hasSkills.length / roleSkills.length) * 100);
 }
 
 /**

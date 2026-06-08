@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       <div class="form-group">
         <label class="form-label">Target Career Role</label>
-        <select name="target_role" class="form-control">
+        <select id="target_role" name="target_role" class="form-control">
           <option value="">-- Select Target Role --</option>
           <option>Web Developer</option>
           <option>Software Engineer</option>

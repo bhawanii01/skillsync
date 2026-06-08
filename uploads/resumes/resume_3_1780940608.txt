@@ -1,0 +1,11 @@
+Test User
+Email: test@example.com
+Phone: 9876543210
+LinkedIn: linkedin.com/in/testuser
+GitHub: github.com/testuser
+Objective: Aspiring Web Developer with CSS, HTML, JavaScript, React.js, PHP, MySQL, Git, REST API skills.
+Education: B.Tech in Computer Science and Engineering.
+Skills: HTML, CSS, JavaScript, React.js, PHP, MySQL, Git, REST API.
+Projects: Developed a SkillSync career portal using PHP and MySQL.
+Internship: Interned at TechCorp as a Frontend Developer.
+Achievements: Certified Web Developer.
