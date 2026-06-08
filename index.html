@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillSync – AI-Assisted Placement & Career Readiness Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Landing-specific styles */
+    body { margin: 0; }
+    .hero {
+      background: linear-gradient(135deg, #3730a3 0%, #4f46e5 50%, #06b6d4 100%);
+      min-height: 100vh; color: #fff;
+      display: flex; flex-direction: column;
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 60px;
+    }
+    .logo { font-size: 22px; font-weight: 800; }
+    .logo span { color: #06b6d4; }
+    .nav-links a { color: rgba(255,255,255,.8); margin-left: 28px; font-size: 14px; font-weight: 500; }
+    .nav-links a:hover { color: #fff; text-decoration: none; }
+    .btn-nav { background: #fff; color: #4f46e5 !important; padding: 8px 20px; border-radius: 8px; }
+    .hero-body {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; text-align: center; padding: 60px 24px;
+    }
+    .hero-badge {
+      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+      padding: 6px 18px; border-radius: 99px; font-size: 13px; margin-bottom: 24px;
+      display: inline-block;
+    }
+    .hero-title { font-size: 52px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; max-width: 720px; }
+    .hero-sub { font-size: 18px; opacity: .85; max-width: 580px; margin-bottom: 36px; }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-hero-primary {
+      background: #fff; color: #4f46e5; font-weight: 700; padding: 14px 32px;
+      border-radius: 10px; font-size: 15px; border: none; cursor: pointer;
+      transition: .2s; text-decoration: none;
+    }
+    .btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); text-decoration: none; color: #3730a3; }
+    .btn-hero-outline {
+      background: transparent; color: #fff; font-weight: 600; padding: 14px 32px;
+      border-radius: 10px; font-size: 15px; border: 2px solid rgba(255,255,255,.5);
+      cursor: pointer; transition: .2s; text-decoration: none;
+    }
+    .btn-hero-outline:hover { border-color: #fff; text-decoration: none; color: #fff; }
+    .features { background: #fff; padding: 80px 60px; }
+    .features-title { text-align: center; font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+    .features-sub { text-align: center; color: #64748b; margin-bottom: 48px; }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .feature-card {
+      background: #f8fafc; border-radius: 14px; padding: 28px;
+      border: 1px solid #e2e8f0; transition: .2s;
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,.08); }
+    .feature-icon { font-size: 36px; margin-bottom: 14px; }
+    .feature-title { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+    .feature-desc { font-size: 14px; color: #64748b; line-height: 1.6; }
+    .cta-section {
+      background: #4f46e5; color: #fff; text-align: center; padding: 60px 24px;
+    }
+    .cta-section h2 { font-size: 30px; font-weight: 700; margin-bottom: 10px; }
+    .cta-section p { opacity: .85; margin-bottom: 28px; }
+    footer { background: #1e293b; color: #94a3b8; text-align: center; padding: 24px; font-size: 13px; }
+    @media(max-width:768px){
+      .hero-title{font-size:32px;} .nav{padding:16px 20px;} .features{padding:48px 20px;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <nav class="nav">
+    <div class="logo">Skill<span>Sync</span></div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="login.php">Login</a>
+      <a href="register.php" class="btn-nav">Get Started →</a>
+    </div>
+  </nav>
+  <div class="hero-body">
+    <div class="hero-badge">🎓 Built for B.Tech Students · 100% Rule-Based AI</div>
+    <h1 class="hero-title">Your Smart Career Readiness Companion</h1>
+    <p class="hero-sub">Analyze skill gaps, boost your resume, attempt aptitude tests, and get a personalized career roadmap — all in one portal.</p>
+    <div class="hero-btns">
+      <a href="register.php" class="btn-hero-primary">🚀 Start for Free</a>
+      <a href="#features" class="btn-hero-outline">See Features</a>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <h2 class="features-title">Everything You Need to Get Placed</h2>
+  <p class="features-sub">SkillSync covers all dimensions of placement readiness in a single platform.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🧠</div>
+      <div class="feature-title">Skill Gap Analysis Engine</div>
+      <div class="feature-desc">Enter your current skills and target role. SkillSync instantly tells you exactly what's missing and how far you are from job-ready.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <div class="feature-title">Career Readiness Score (0–100)</div>
+      <div class="feature-desc">A weighted composite score combining your skills, aptitude, resume strength, and roadmap progress — updated in real time.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📄</div>
+      <div class="feature-title">Resume Strength Checker</div>
+      <div class="feature-desc">Upload your resume and get an instant strength score with specific feedback on what sections to improve for maximum impact.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🗺️</div>
+      <div class="feature-title">Personalized Career Roadmap</div>
+      <div class="feature-desc">Get a step-by-step learning roadmap tailored to your target role, with milestones you can mark complete as you progress.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📝</div>
+      <div class="feature-title">Aptitude Assessment</div>
+      <div class="feature-desc">Take timed aptitude tests covering Quantitative, Logical, Verbal, and Technical sections — modelled on real placement patterns.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎯</div>
+      <div class="feature-title">Job Role Matching</div>
+      <div class="feature-desc">Find which job roles best match your current skills and see a compatibility percentage for each position in our database.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to Ace Your Placements?</h2>
+  <p>Join SkillSync today and start building your career readiness score.</p>
+  <a href="register.php" class="btn-hero-primary">Create Free Account</a>
+</section>
+
+<footer>
+  &copy; 2024 SkillSync · Summer Training Project · B.Tech CSE · CGC Landran, Mohali
+</footer>
+
+</body>
+</html>
