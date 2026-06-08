@@ -3,11 +3,14 @@
 // SkillSync – config.php  |  Database Configuration
 // =====================================================
 
-define('DB_HOST',     'localhost');
-define('DB_USER',     'root');        // Change to your MySQL username
-define('DB_PASS',     '');            // Change to your MySQL password
-define('DB_NAME',     'skillsync_db');
-define('BASE_URL',    'http://localhost/skillsync/');
+define('DB_HOST',     getenv('DB_HOST') ?: 'localhost');
+define('DB_USER',     getenv('DB_USER') ?: 'root');        // Change to your MySQL username
+define('DB_PASS',     getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');            // Change to your MySQL password
+define('DB_NAME',     getenv('DB_NAME') ?: 'skillsync_db');
+$protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$path = ($host === 'localhost' || $host === '127.0.0.1') ? '/skillsync' : '';
+define('BASE_URL', $protocol . "://" . $host . $path . '/');
 define('UPLOAD_PATH', __DIR__ . '/uploads/resumes/');
 define('SITE_NAME',   'SkillSync');
 

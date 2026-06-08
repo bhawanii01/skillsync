@@ -261,4 +261,4 @@ INSERT INTO job_roles (role_name, company_type, min_cgpa, req_skills, descriptio
 
 -- Default admin account (password: admin@123  → bcrypt hash placeholder)
 INSERT INTO admin_users (username, password_hash, full_name) VALUES
-('admin', '$2y$10$exampleHashReplacedOnSetup00000000000000000000', 'System Administrator');
+('admin', '$2y$10$URhiU3e7K.5m/HNTb6XW0.O3/4J.gkMHcdoaJTkB4lK2T2y/rqMzO', 'System Administrator');
